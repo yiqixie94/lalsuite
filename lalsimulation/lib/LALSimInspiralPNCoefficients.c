@@ -982,6 +982,18 @@ XLALSimInspiralPNPhasing_F2(
     pfa->vlogv[6]*=(1.0+XLALSimInspiralWaveformParamsLookupNonGRDChi6L(p));
     pfa->v[7]*=(1.0+XLALSimInspiralWaveformParamsLookupNonGRDChi7(p));
 
+    /* modify PN coefficients if PPE parameters are supplied
+     * Entirely ad-hoc, but will work for our case.
+     */
+    pfa->v[0] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE0(p);
+    pfa->v[1] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE1(p);
+    pfa->v[2] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE2(p);
+    pfa->v[3] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE3(p);
+    pfa->v[4] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE4(p);
+    pfa->v[5] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE5(p);
+    pfa->v[6] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE6(p);
+    pfa->v[7] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE7(p);
+
     const REAL8 qm_def1=1.+XLALSimInspiralWaveformParamsLookupdQuadMon1(p);
     const REAL8 qm_def2=1.+XLALSimInspiralWaveformParamsLookupdQuadMon2(p);
 
