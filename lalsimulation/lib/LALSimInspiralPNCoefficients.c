@@ -994,6 +994,17 @@ XLALSimInspiralPNPhasing_F2(
     pfa->v[6] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE6(p);
     pfa->v[7] += XLALSimInspiralWaveformParamsLookupNonGRBetaPPE7(p);
 
+    /* Assign vnegative values; works for negative half and one PN*/
+    pfa->vnegative[0] = 0.L;
+    pfa->vnegative[1] = XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus1(p);
+    pfa->vnegative[2] = XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus2(p);
+    pfa->vnegative[3] = 0.L;
+    pfa->vnegative[4] = 0.L;
+    pfa->vnegative[5] = 0.L;
+    pfa->vnegative[6] = 0.L;
+    pfa->vnegative[7] = 0.L;
+
+
     const REAL8 qm_def1=1.+XLALSimInspiralWaveformParamsLookupdQuadMon1(p);
     const REAL8 qm_def2=1.+XLALSimInspiralWaveformParamsLookupdQuadMon2(p);
 
@@ -1096,6 +1107,7 @@ XLALSimInspiralPNPhasing_F2(
         pfa->v[ii] *= pfaN;
         pfa->vlogv[ii] *= pfaN;
         pfa->vlogvsq[ii] *= pfaN;
+        pfa->vnegative[ii] *= pfaN;
     }
 }
 

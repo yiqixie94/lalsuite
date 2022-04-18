@@ -386,9 +386,10 @@ static int IMRPhenomDGenerateFD(
   ComputeIMRPhenomDPhaseCoefficients(pPhi, eta, chi1, chi2, finspin, extraParams);
   if (!pPhi) XLAL_ERROR(XLAL_EFUNC);
   PNPhasingSeries *pn = NULL;
+  XLALPrintError("From PhenomD; Negative -1, -2: %f, %f\n", XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus1(extraParams), XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus2(extraParams));
   XLALSimInspiralTaylorF2AlignedPhasing(&pn, m1, m2, chi1, chi2, extraParams);
   if (!pn) XLAL_ERROR(XLAL_EFUNC);
-
+  XLALPrintError("From PhenomD; v1, negativev2: %f, %f\n", pn->v[1], pn->vnegative[2]);
   // Subtract 3PN spin-spin term below as this is in LAL's TaylorF2 implementation
   // (LALSimInspiralPNCoefficients.c -> XLALSimInspiralPNPhasing_F2), but
   REAL8 testGRcor=1.0;
@@ -421,6 +422,7 @@ static int IMRPhenomDGenerateFD(
 
   // factor of 2 b/c phi0 is orbital phase
   const REAL8 phi_precalc = 2.*phi0 + phifRef;
+  XLALPrintError("phi0, phiref,t0 values: %.15f / %.15f / %.15f\n", phi0, phifRef, t0);
 
   int status_in_for = XLAL_SUCCESS;
   int ret = XLAL_SUCCESS;
@@ -757,7 +759,7 @@ double XLALSimIMRPhenomDFinalSpin(
  */
 int IMRPhenomDPhaseFrequencySequence(
     REAL8Sequence *phases, /**< [out] phase evaluated at input freqs */
-    REAL8Sequence *freqs,  /**< Sequency of Geometric frequencies */
+    REAL8Sequence *freqs,  /**< Frequency in 1/s */
     size_t ind_min,        /**< start index for frequency loop */
     size_t ind_max,        /**< end index for frequency loop */
     REAL8 m1,              /**< mass of primary in solar masses */
@@ -773,6 +775,8 @@ int IMRPhenomDPhaseFrequencySequence(
     LALDict *extraParams /**< linked list containing the extra testing GR parameters */
 )
 {
+  const REAL8 M = m1 + m2;
+  const REAL8 M_sec = M * LAL_MTSUN_SI;
   int retcode = 0;
   PhenDAmpAndPhasePreComp pD;
   retcode = IMRPhenomDSetupAmpAndPhaseCoefficients(
@@ -789,7 +793,7 @@ int IMRPhenomDPhaseFrequencySequence(
   #pragma omp parallel for
   for (size_t i = ind_min; i < ind_max; i++)
   {
-    REAL8 Mf = freqs->data[i]; // geometric frequency
+    REAL8 Mf = freqs->data[i] * M_sec; // geometric frequency
 
     UsefulPowers powers_of_f;
     status_in_for = init_useful_powers(&powers_of_f, Mf);
@@ -808,6 +812,36 @@ int IMRPhenomDPhaseFrequencySequence(
   // LALFree(pPhi);
   // LALFree(pn);
 
+  return XLAL_SUCCESS;
+}
+
+/* Wrapper code for SWIG */
+int XLALIMRPhenomDPhaseFrequencySequence(
+    REAL8Sequence *phases, /**< [out] phase evaluated at input freqs */
+    REAL8Sequence *freqs,  /**< Sequency of Geometric frequencies */
+    size_t ind_min,        /**< start index for frequency loop */
+    size_t ind_max,        /**< end index for frequency loop */
+    REAL8 m1,              /**< mass of primary in solar masses */
+    REAL8 m2,              /**< mass of secondary in solar masses */
+    REAL8 chi1x,           /**< x-component of the dimensionless spin of object 1 w.r.t. Lhat = (0,0,1) */
+    REAL8 chi1y,           /**< y-component of the dimensionless spin of object 1 w.r.t. Lhat = (0,0,1) */
+    REAL8 chi1z,           /**< z-component of the dimensionless spin of object 1 w.r.t. Lhat = (0,0,1) */
+    REAL8 chi2x,           /**< x-component of the dimensionless spin of object 2 w.r.t. Lhat = (0,0,1) */
+    REAL8 chi2y,           /**< y-component of the dimensionless spin of object 2 w.r.t. Lhat = (0,0,1) */
+    REAL8 chi2z,           /**< z-component of the dimensionless spin of object 2 w.r.t. Lhat = (0,0,1) */
+    LALDict *extraParams /**< linked list containing the extra testing GR parameters */
+)
+{
+  int retcode = 0;
+  retcode = IMRPhenomDPhaseFrequencySequence(
+    phases, freqs, ind_min, ind_max, m1, m2, chi1x, chi1y,
+    chi1z, chi2x, chi2y, chi2z, 1.0, 1.0, extraParams
+  );
+  if (retcode != XLAL_SUCCESS)
+  {
+    XLALPrintError("XLAL Error - IMRPhenomDPhaseFrequencySequence failed\n");
+    XLAL_ERROR(XLAL_EDOM);
+  }
   return XLAL_SUCCESS;
 }
 

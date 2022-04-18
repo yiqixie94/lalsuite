@@ -470,7 +470,9 @@ typedef enum tagLALPNOrder {
   LAL_PNORDER_THREE,		/**< 3PN <==> O(v^6) */
   LAL_PNORDER_THREE_POINT_FIVE,	/**< 3.5PN <==> O(v^7)  */
   LAL_PNORDER_PSEUDO_FOUR,	/**< pseudo-4PN tuning coefficients included, true 4PN terms currently unknown */
-  LAL_PNORDER_NUM_ORDER		/**< Number of elements in enum, useful for checking bounds */
+  LAL_PNORDER_NUM_ORDER,	/**< Number of elements in enum, useful for checking bounds */
+  LAL_PNORDER_MINUS_ONE,        /**< -1PN <==> O(v^-2) order */
+  LAL_PNORDER_MINUS_HALF        /**< -0.5PN <==> O(v^-1) order */
  } LALPNOrder;
 
 /** Enumeration to specify the tapering method to apply to the waveform */
@@ -519,6 +521,7 @@ typedef enum tagTestGRaccept {
 #define PN_PHASING_SERIES_MAX_ORDER 15
 typedef struct tagPNPhasingSeries
 {
+    REAL8 vnegative[PN_PHASING_SERIES_MAX_ORDER+1];
     REAL8 v[PN_PHASING_SERIES_MAX_ORDER+1];
     REAL8 vlogv[PN_PHASING_SERIES_MAX_ORDER+1];
     REAL8 vlogvsq[PN_PHASING_SERIES_MAX_ORDER+1];
