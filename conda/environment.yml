@@ -16,8 +16,8 @@ dependencies:
   - hdf5
   - healpy
   - help2man >=1.37
-  - ldas-tools-framecpp
-  - libframel
+  - ldas-tools-framecpp <3.0.0a0
+  - libframel <9.0.0a0
   - ligo-gracedb
   - ligo-segments
   - lscsoft-glue >=2.0.0
@@ -34,6 +34,6 @@ dependencies:
   #- python-ligo-lw  <-- depends upon python-lal
   - scipy >=0.9.0
   - six
-  - swig >=3.0.10
+  - swig >=3.0.10,<4.1.0a0
   - texlive-core
   - zlib
