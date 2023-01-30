@@ -386,10 +386,10 @@ static int IMRPhenomDGenerateFD(
   ComputeIMRPhenomDPhaseCoefficients(pPhi, eta, chi1, chi2, finspin, extraParams);
   if (!pPhi) XLAL_ERROR(XLAL_EFUNC);
   PNPhasingSeries *pn = NULL;
-  XLALPrintError("From PhenomD; Negative -1, -2: %f, %f\n", XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus1(extraParams), XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus2(extraParams));
+  // XLALPrintError("From PhenomD; Negative -1, -2: %f, %f\n", XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus1(extraParams), XLALSimInspiralWaveformParamsLookupNonGRBetaPPEMinus2(extraParams));
   XLALSimInspiralTaylorF2AlignedPhasing(&pn, m1, m2, chi1, chi2, extraParams);
   if (!pn) XLAL_ERROR(XLAL_EFUNC);
-  XLALPrintError("From PhenomD; v1, negativev2: %f, %f\n", pn->v[1], pn->vnegative[2]);
+  // XLALPrintError("From PhenomD; v1, negativev2: %f, %f\n", pn->v[1], pn->vnegative[2]);
   // Subtract 3PN spin-spin term below as this is in LAL's TaylorF2 implementation
   // (LALSimInspiralPNCoefficients.c -> XLALSimInspiralPNPhasing_F2), but
   REAL8 testGRcor=1.0;
@@ -422,7 +422,7 @@ static int IMRPhenomDGenerateFD(
 
   // factor of 2 b/c phi0 is orbital phase
   const REAL8 phi_precalc = 2.*phi0 + phifRef;
-  XLALPrintError("phi0, phiref,t0 values: %.15f / %.15f / %.15f\n", phi0, phifRef, t0);
+  // XLALPrintError("phi0, phiref,t0 values: %.15f / %.15f / %.15f\n", phi0, phifRef, t0);
 
   int status_in_for = XLAL_SUCCESS;
   int ret = XLAL_SUCCESS;
