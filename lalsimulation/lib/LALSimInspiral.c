@@ -194,8 +194,14 @@ static const char *lalSimulationApproximantNames[] = {
 
 /* TODO: UPDATE ME WHENEVER A NEW PN ORDER IS ADDED */
 static const char *lalSimulationPNOrderNames[] = {
-    [LAL_PNORDER_MINUS_ONE]         = "negativeonePN",
-    [LAL_PNORDER_MINUS_HALF]        = "negativeoneHalfPN",
+    [LAL_PNORDER_MINUS_FOUR]             = "negativefourPN",
+    [LAL_PNORDER_MINUS_THREE_POINT_FIVE] = "negativethreePointFivePN",
+    [LAL_PNORDER_MINUS_THREE]            = "negativethreePN",
+    [LAL_PNORDER_MINUS_TWO_POINT_FIVE]   = "negativetwoPointFivePN",
+    [LAL_PNORDER_MINUS_TWO]              = "negativetwoPN",
+    [LAL_PNORDER_MINUS_ONE_POINT_FIVE]   = "negativeonePointFivePN",
+    [LAL_PNORDER_MINUS_ONE]              = "negativeonePN",
+    [LAL_PNORDER_MINUS_HALF]             = "negativeoneHalfPN",
     [LAL_PNORDER_NEWTONIAN]         = "newtonian",
     [LAL_PNORDER_HALF]              = "oneHalfPN",
     [LAL_PNORDER_ONE]               = "onePN",

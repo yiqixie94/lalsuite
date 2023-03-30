@@ -1059,8 +1059,21 @@ static double PhiInsAnsatzInt(double Mf, UsefulPowers *powers_of_Mf, PhiInsPrefa
   double v2 = v * v;
   double v6 = v2 * v2 * v2;
   double v7 = v6 * v;
+  double v8 = v7 * v;
+  double v9 = v8 * v;
+  double v10 = v9 * v;
+  double v11 = v10 * v;
+  double v12 = v11 * v;
+  double v13 = v12 * v;
+  // Formula: phasing += pn->vnegative[(-PN*2)] / v(-b);
   phasing += pn->vnegative[1] / v6;
   phasing += pn->vnegative[2] / v7;
+  phasing += pn->vnegative[3] / v8;
+  phasing += pn->vnegative[4] / v9;
+  phasing += pn->vnegative[5] / v10;
+  phasing += pn->vnegative[6] / v11;
+  phasing += pn->vnegative[7] / v12;
+  phasing += pn->vnegative[8] / v13;
 
   // Now add higher order terms that were calibrated for PhenomD
   phasing += ( prefactors->one * Mf + prefactors->four_thirds * powers_of_Mf->four_thirds
@@ -1136,6 +1149,12 @@ static double DPhiInsAnsatzInt(double Mf, IMRPhenomDPhaseCoefficients *p, PNPhas
   Dphasing += -5.0 * pn->v[0];
   Dphasing += -6.0 * pn->vnegative[1] / v;
   Dphasing += -7.0 * pn->vnegative[2] / v2;
+  Dphasing += -8.0 * pn->vnegative[3] / v3;
+  Dphasing += -9.0 * pn->vnegative[4] / v4;
+  Dphasing += -10.0 * pn->vnegative[5] / v5;
+  Dphasing += -11.0 * pn->vnegative[6] / v6;
+  Dphasing += -12.0 * pn->vnegative[7] / v7;
+  Dphasing += -13.0 * pn->vnegative[8] / v8;
   Dphasing /= v8 * 3.0;
   Dphasing *= Pi;
 

@@ -309,9 +309,15 @@ int XLALSimInspiralTaylorF2Core(
 	    XLAL_ERROR(XLAL_EINVAL, "Invalid tidal PN order %d", XLALSimInspiralWaveformParamsLookupPNTidalOrder(p) );
     }
 
-    /* Extract the negative half and one PN phasing terms */
+    /* Extract the negative PN phasing terms */
     REAL8 pfanegative1 = pfa.vnegative[1];
     REAL8 pfanegative2 = pfa.vnegative[2];
+    REAL8 pfanegative3 = pfa.vnegative[3];
+    REAL8 pfanegative4 = pfa.vnegative[4];
+    REAL8 pfanegative5 = pfa.vnegative[5];
+    REAL8 pfanegative6 = pfa.vnegative[6];
+    REAL8 pfanegative7 = pfa.vnegative[7];
+    REAL8 pfanegative8 = pfa.vnegative[8];
 
     /* The flux and energy coefficients below are used to compute SPA amplitude corrections */
 
@@ -386,6 +392,12 @@ int XLALSimInspiralTaylorF2Core(
         /* Negative PN terms reference phasing */
         ref_phasing += pfanegative1 / vref;
         ref_phasing += pfanegative2 / v2ref;
+        ref_phasing += pfanegative3 / v3ref;
+        ref_phasing += pfanegative4 / v4ref;
+        ref_phasing += pfanegative5 / v5ref;
+        ref_phasing += pfanegative6 / v6ref;
+        ref_phasing += pfanegative7 / v7ref;
+        ref_phasing += pfanegative8 / v8ref;
 
         ref_phasing /= v5ref;
     } /* End of if(f_ref != 0) block */
@@ -432,6 +444,12 @@ int XLALSimInspiralTaylorF2Core(
         /* Negative PN terms in phasing */
         phasing += pfanegative1 / v;
         phasing += pfanegative2 / v2;
+        phasing += pfanegative3 / v3;
+        phasing += pfanegative4 / v4;
+        phasing += pfanegative5 / v5;
+        phasing += pfanegative6 / v6;
+        phasing += pfanegative7 / v7;
+        phasing += pfanegative8 / v8;
 
     /* WARNING! Amplitude orders beyond 0 have NOT been reviewed!
      * Use at your own risk. The default is to turn them off.

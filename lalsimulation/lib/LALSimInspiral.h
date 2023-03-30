@@ -471,8 +471,14 @@ typedef enum tagLALPNOrder {
   LAL_PNORDER_THREE_POINT_FIVE,	/**< 3.5PN <==> O(v^7)  */
   LAL_PNORDER_PSEUDO_FOUR,	/**< pseudo-4PN tuning coefficients included, true 4PN terms currently unknown */
   LAL_PNORDER_NUM_ORDER,	/**< Number of elements in enum, useful for checking bounds */
-  LAL_PNORDER_MINUS_ONE,        /**< -1PN <==> O(v^-2) order */
-  LAL_PNORDER_MINUS_HALF        /**< -0.5PN <==> O(v^-1) order */
+  LAL_PNORDER_MINUS_HALF,   /**< -0.5PN <==> O(v^-1) order */
+  LAL_PNORDER_MINUS_ONE,    /**< -1PN <==> O(v^-2) order */
+  LAL_PNORDER_MINUS_ONE_POINT_FIVE,   /**< -1.5PN <==> O(v^-3) order */
+  LAL_PNORDER_MINUS_TWO,    /**< -2PN <==> O(v^-4) order */
+  LAL_PNORDER_MINUS_TWO_POINT_FIVE,   /**< -2.5PN <==> O(v^-5) order */
+  LAL_PNORDER_MINUS_THREE,    /**< -3PN <==> O(v^-6) order */
+  LAL_PNORDER_MINUS_THREE_POINT_FIVE,   /**< -3.5PN <==> O(v^-7) order */
+  LAL_PNORDER_MINUS_FOUR,    /**< -4PN <==> O(v^-8) order */
  } LALPNOrder;
 
 /** Enumeration to specify the tapering method to apply to the waveform */
